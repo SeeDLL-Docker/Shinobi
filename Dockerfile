@@ -61,14 +61,8 @@ RUN mkdir -p /home/Shinobi /config && \
         /var/lib/apt/lists/* \
         /var/tmp/* && \
     node -v && \
-    npm -v
-
-# Additional packages to support NodeJS as the base build is NVidia CUDA
-# Install FFmpeg
-
-WORKDIR /home/Shinobi
-
-RUN git clone https://gitlab.com/Shinobi-Systems/Shinobi.git /home/Shinobi && \
+    npm -v && \
+    git clone https://gitlab.com/Shinobi-Systems/Shinobi.git /home/Shinobi && \
     cd /home/Shinobi && \
     chmod -R 777 /home/Shinobi/plugins && \
     npm i npm@latest -g && \
@@ -78,9 +72,9 @@ RUN git clone https://gitlab.com/Shinobi-Systems/Shinobi.git /home/Shinobi && \
     chmod -f +x /home/Shinobi/Docker/init.sh && \
     sed -i -e 's/\r//g' /home/Shinobi/Docker/init.sh
 
-VOLUME ["/home/Shinobi/videos"]
-VOLUME ["/home/Shinobi/libs/customAutoLoad"]
-VOLUME ["/config"]
+WORKDIR /home/Shinobi
+
+VOLUME ["/home/Shinobi/videos", "/home/Shinobi/libs/customAutoLoad", "/config"]
 
 EXPOSE 8080 443 21 25
 

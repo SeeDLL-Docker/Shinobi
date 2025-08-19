@@ -1,4 +1,4 @@
-FROM nvidia/cuda:12.1.1-base-ubuntu22.04
+FROM nvidia/cuda:13.0.0-base-ubuntu24.04
 
 ENV DB_USER=majesticflame \
     DB_PASSWORD='' \
@@ -55,8 +55,8 @@ RUN mkdir -p /home/Shinobi /config && \
         sudo \
         xz-utils && \
     apt update --fix-missing && \
-    curl -sL https://deb.nodesource.com/setup_16.x | bash - && \
-    apt install nodejs -y && \
+    curl -fsSL https://deb.nodesource.com/setup_22.x | sudo bash -  && \
+    apt install -y nodejs && \
     rm -rf \
         /var/lib/apt/lists/* \
         /var/tmp/* && \

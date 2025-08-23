@@ -2,8 +2,16 @@
 name: Ubuntu_Shinobi_Nvidia docker image
 # Controls when the action will run.
 on:
-#  schedule:
-#    - cron: "0 19 1/10 * *"
+  schedule:
+    - cron: "0 19 1/10 * *"
+  
+  # 新增手动触发入口
+  workflow_dispatch:
+    inputs:
+      reason:
+        description: '触发原因'
+        required: true
+        default: '手动执行构建'
 
 jobs:
   buildx:

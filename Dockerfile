@@ -1,9 +1,9 @@
 FROM nvidia/cuda:13.0.0-base-ubuntu24.04
 
-ENV DB_USER='' \
-    DB_PASSWORD='' \
+ENV DB_USER='test' \
+    DB_PASSWORD='test' \
     DB_HOST='localhost' \
-    DB_DATABASE=ccio \
+    DB_DATABASE='test' \
     DB_PORT=3306 \
     DB_TYPE='mysql' \
     PLUGIN_KEYS='{}' \

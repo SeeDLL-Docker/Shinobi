@@ -2,8 +2,8 @@
 name: Ubuntu_Shinobi_Nvidia docker image
 # Controls when the action will run.
 on:
-  schedule:
-    - cron: "0 19 1/10 * *"
+#  schedule:
+#    - cron: "0 19 1/10 * *"
 
 jobs:
   buildx:

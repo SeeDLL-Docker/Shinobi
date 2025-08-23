@@ -1,9 +1,9 @@
 FROM nvidia/cuda:13.0.0-base-ubuntu24.04
 
-ENV DB_USER='test' \
-    DB_PASSWORD='test' \
+ENV DB_USER='' \
+    DB_PASSWORD='' \
     DB_HOST='localhost' \
-    DB_DATABASE='test' \
+    DB_DATABASE='' \
     DB_PORT=3306 \
     DB_TYPE='mysql' \
     PLUGIN_KEYS='{}' \
@@ -55,8 +55,8 @@ RUN mkdir -p /home/Shinobi /config && \
         xz-utils && \
     apt update --fix-missing && \
     curl -fsSL https://deb.nodesource.com/setup_22.x | sudo bash -  && \
-    apt install -y nodejs && \
-    apt clear && \
+    apt-get install -y nodejs && \
+    apt-get clean && \
     rm -rf \
         /var/lib/apt/lists/* \
         /var/tmp/* && \

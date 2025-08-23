@@ -1,12 +1,11 @@
 FROM nvidia/cuda:13.0.0-base-ubuntu24.04
 
-ENV DB_USER=majesticflame \
+ENV DB_USER='' \
     DB_PASSWORD='' \
     DB_HOST='localhost' \
     DB_DATABASE=ccio \
     DB_PORT=3306 \
     DB_TYPE='mysql' \
-    SUBSCRIPTION_ID=sub_XXXXXXXXXXXX \
     PLUGIN_KEYS='{}' \
     SSL_ENABLED='false' \
     SSL_COUNTRY='CA' \
@@ -19,7 +18,7 @@ ENV DB_USER=majesticflame \
 RUN mkdir -p /home/Shinobi /config && \
     apt update -y && \
     apt install -y software-properties-common \
-        wget curl net-tools \
+        wget curl net-tools mysql-client \
         libfreetype6-dev \
         libgnutls28-dev \
         libmp3lame-dev \
@@ -57,6 +56,7 @@ RUN mkdir -p /home/Shinobi /config && \
     apt update --fix-missing && \
     curl -fsSL https://deb.nodesource.com/setup_22.x | sudo bash -  && \
     apt install -y nodejs && \
+    apt clear && \
     rm -rf \
         /var/lib/apt/lists/* \
         /var/tmp/* && \
@@ -68,17 +68,17 @@ RUN mkdir -p /home/Shinobi /config && \
     npm i npm@latest -g && \
     npm install --unsafe-perm && \
     npm install pm2 -g && \
-    cp ./Docker/pm2.yml ./ && \
-    chmod -f +x /home/Shinobi/Docker/init.sh && \
-    sed -i -e 's/\r//g' /home/Shinobi/Docker/init.sh
+    cp ./Docker/pm2.yml ./ 
+
+COPY entrypoint.sh /home/Shinobi/entrypoint.sh
 
 WORKDIR /home/Shinobi
 
-VOLUME ["/home/Shinobi/videos", "/home/Shinobi/libs/customAutoLoad", "/config"]
-
 EXPOSE 8080 443 21 25
 
-ENTRYPOINT ["sh","/home/Shinobi/Docker/init.sh"]
+VOLUME ["/home/Shinobi/videos", "/home/Shinobi/libs/customAutoLoad", "/config"]
 
-CMD [ "pm2-docker", "/home/Shinobi/Docker/pm2.yml" ]
+ENTRYPOINT ["sh","/home/Shinobi/entrypoint.sh"]
+
+CMD [ "pm2-docker", "/home/Shinobi/pm2.yml" ]
 

@@ -1,4 +1,4 @@
-FROM nvidia/cuda:13.0.0-base-ubuntu24.04
+FROM nvidia/cuda:13.1.1-base-ubuntu24.04
 
 ENV DB_USER='' \
     DB_PASSWORD='' \
